@@ -1,0 +1,62 @@
+status codes:
+we can print the status code in the console by using:
+response.statuscode
+
+all the status code:
+
+Informational responses (100 – 199)
+Successful responses (200 – 299)
+Redirection messages (300 – 399)
+Client error responses (400 – 499)
+Server error responses (500 – 599)
+
+
+
+now we need to read the data from the json file. As we know that the json file is write in the string datatype hence we cannot console log it directly hence we need to parse it.
+
+so form string to original js object: parse
+and from js object formate to string:stringify
+
+now inside the get method of https create a on method with the response and create the const variables for the data we want to print in the console like:
+response.on("data",(data)=>{
+            const weatherdata=JSON.parse(data);
+            const temp=weatherdata.main.temp;
+            const desc=weatherdata.weather[0].description;
+            console.log(desc);
+            console.log(temp);
+        })
+
+so the path that like const desc=weatherdata.weather[0].description; we can get them directly from the json by using the extention json veiwer pro 
+
+
+full code:
+const { response } = require("express");
+const express =require("express");
+const https=require("https");
+
+const app= express();
+
+app.get("/",(req,res)=>{
+    const url="https://api.openweathermap.org/data/2.5/weather?q=Kolkata&appid=5f139850b1894bfdfd1f2e02929bf12a&units=metric";
+
+    https.get(url,(response)=>{
+        // console.log(response);
+        response.on("data",(data)=>{
+            const weatherdata=JSON.parse(data);
+            const temp=weatherdata.main.temp;
+            const desc=weatherdata.weather[0].description;
+            console.log(desc);
+            console.log(temp);
+        })
+    });
+
+    
+
+    res.send("Server is running");
+})
+
+
+
+app.listen(3000,()=>{
+    console.log("Running");
+})

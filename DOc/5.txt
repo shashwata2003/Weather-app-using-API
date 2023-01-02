@@ -1,0 +1,50 @@
+here we are putting the use of API in website
+
+so first we need to  create a project we call it weatherappusingapi it is present in the projects folder of the d drive.
+
+now we have done this using the hyper terminal it is reallly easy to do in this way. 
+run the following command in the terminal:
+
+mkdir nameoftheproject
+touch app.js index.HTML
+npm init
+npm i express
+
+after thuis open the project and call the express module and the https module.
+
+https module will help us to get the data form the api and sen it to the console like:
+
+ const url="https://api.openweathermap.org/data/2.5/weather?q=Kolkata&appid=5f139850b1894bfdfd1f2e02929bf12a&units=metric";
+
+    https.get(url,(response)=>{
+        console.log(response);
+        
+        // res.send(JSON.stringify(response));
+    });
+
+also before all this make sure to listen to any port just that it can be read by the browser.
+
+full code so far:
+
+const { response } = require("express");
+const express =require("express");
+const https=require("https");
+
+const app= express();
+
+app.get("/",(req,res)=>{
+    const url="https://api.openweathermap.org/data/2.5/weather?q=Kolkata&appid=5f139850b1894bfdfd1f2e02929bf12a&units=metric";
+
+    https.get(url,(response)=>{
+        console.log(response);
+        
+        // res.send(JSON.stringify(response));
+    });
+    res.send("Server is running");
+})
+
+
+
+app.listen(3000,()=>{
+    console.log("Running");
+})

@@ -1,0 +1,59 @@
+so in a a get method we can only use one send request like:res.send();
+
+so if we want to send multiple things to the server we need to use res.write().
+
+so now we want to send the data we have collected to the webpage that we are going to create so to do that we nned to use the multiple write methods and only one send method at the end like:
+
+res.write("<h1>The temp in kolkata" + temp +"</h1>");
+res.write("<p>weather type in kolkata" + desc +"</h1>");
+res.write("<img src="+imgurl+"></img>");
+res.send();
+
+full response.on code:
+
+const weatherdata=JSON.parse(data);
+const temp=weatherdata.main.temp;
+const desc=weatherdata.weather[0].description;
+const img=weatherdata.weather[0].icon;
+const imgurl="http://openweathermap.org/img/wn/"+img+"@2x.png";
+res.write("<h1>The temp in kolkata" + temp +"</h1>");
+res.write("<p>weather type in kolkata" + desc +"</h1>");
+res.write("<img src="+imgurl+"></img>");
+res.send();
+
+Full code of app.js:
+
+const { response } = require("express");
+const express =require("express");
+const https=require("https");
+
+const app= express();
+
+app.get("/",(req,res)=>{
+    const url="https://api.openweathermap.org/data/2.5/weather?q=Kolkata&appid=5f139850b1894bfdfd1f2e02929bf12a&units=metric";
+
+    https.get(url,(response)=>{
+        // console.log(response);
+        response.on("data",(data)=>{
+            const weatherdata=JSON.parse(data);
+            const temp=weatherdata.main.temp;
+            const desc=weatherdata.weather[0].description;
+            const img=weatherdata.weather[0].icon;
+            const imgurl="http://openweathermap.org/img/wn/"+img+"@2x.png";
+            res.write("<h1>The temp in kolkata" + temp +"</h1>");
+            res.write("<p>weather type in kolkata" + desc +"</h1>");
+            res.write("<img src="+imgurl+"></img>");
+            res.send();
+        })
+    });
+
+    
+
+    // res.send("Server is running");
+})
+
+
+
+app.listen(3000,()=>{
+    console.log("Running");
+})

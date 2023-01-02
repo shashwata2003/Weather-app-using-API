@@ -1,0 +1,62 @@
+so till now two api we saw is really simple hence doesnot take to much of work.
+
+now to look into some more import apis like openweather api which helps us receive weather updates from the website.
+
+to use thos api we need signin to the page and get a private key to use it.
+
+the end point of this api is:
+
+https://api.openweathermap.org/data/2.5/weather
+
+now to add parameters we can add the location of which we want it can be done by useing the parameters q and the unit of the temp can also be changed using the unit parameter in the url. Also we need to add the private key in the url 
+
+my private key for this website is:
+
+5f139850b1894bfdfd1f2e02929bf12a
+
+now the full like is :
+
+https://api.openweathermap.org/data/2.5/weather?q=Kolkata&appid=5f139850b1894bfdfd1f2e02929bf12a&units=metric
+
+now we can use the app call the postman which will be help us to get the info from the API in a much prettier way like:
+
+
+
+    "weather": [
+        {
+            "id": 721,
+            "main": "Haze",
+            "description": "haze",
+            "icon": "50d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 25.97,
+        "feels_like": 25.97,
+        "temp_min": 25.97,
+        "temp_max": 25.97,
+        "pressure": 1017,
+        "humidity": 53
+    },
+    "visibility": 2800,
+    "wind": {
+        "speed": 1.54,
+        "deg": 40
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1672653824,
+    "sys": {
+        "type": 1,
+        "id": 9114,
+        "country": "IN",
+        "sunrise": 1672620402,
+        "sunset": 1672659208
+    },
+    "timezone": 19800,
+    "id": 1275004,
+    "name": "Kolkata",
+    "cod": 200
+}

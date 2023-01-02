@@ -1,0 +1,7 @@
+SO in the real world a data is tranfered in the form of json file because it allows us to compress the data in a very less memory string and it can be easily converted to the original javascript format at the user end easily.
+
+hence when a json is tranfered it converts the data into a string hence takes very less storage and then transfers it . and also in the user end we can easily convert it to the js format.
+
+also JSON can be easily read.
+
+we can tranfer data in the form of XML(Extensible Markup Language) and HTML(Hyper text markup Language) format also but json(javascript object notation)

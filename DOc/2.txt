@@ -1,0 +1,26 @@
+SO a Api consists of:
+-a end point
+- paths
+- parameters
+- and authnetication
+
+
+So in a url the first half is a end point which gives direct acces to the api with out any special search option like:
+
+https://api.kanye.rest
+
+This link of the api is called the end point api that means no special search option
+
+not a api link that have a search option or we call it paths and parameters like:
+
+https://v2.jokeapi.dev/joke/Any 
+
+till /joke it is end point link and after that the catagory ANy is a special path that is need to be handles in the node and react module. with the catch key world
+
+now we can also apply different parameters to this link which will help us to handle the search more effictivly.
+
+like:
+
+https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&type=single&contains=array
+
+here the catagory is Programming and after that all the parameters are applied like the flag of nsfw , the type pf singlr line etc.

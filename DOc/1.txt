@@ -1,0 +1,7 @@
+In this tut we are going to learn about APIs(Application Programming Interface).
+
+So API is a set of command, function , protocols and object that a programmer can use to create software or interact with an external system.
+
+
+It is basically someone in some part of the world created a service like weather aPI which have all the weather info so if i want to show weather on my webpage i will not go collection weather info like wind speed on my own. I will just use the api such that i will get the info of the weather directly.
+

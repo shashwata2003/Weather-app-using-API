@@ -1,0 +1,122 @@
+SO here creating a form such that we can find the weather of a different city and not just only a hardcoded city like kolkata.
+
+so do to it we need a form which we are goin to create in index.html with only one field for now and with a post request like:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <label for="cityInput">City NAme:</label>
+        <input type="text" id="cityInput" name="cityName">
+        <button type="submit">Go</button>
+    </form>
+</body>
+</html>
+
+
+now we need to receive this post request in th app.js.
+but before that we need to edit the get method of the app.
+so when we go to "/" it should request for the index.html like:
+
+app.get("/",(req,res)=>{
+    
+    res.sendFile(__dirname+"/index.html");
+
+    // res.send("Server is running");
+})
+
+now to receive the post request of the button on the form we need to create a post method of the app and also a callback function also to send different content throught the post method we need a new module called the body-paser which will help us to send multiple types of data using thepost method to use it we need to add this line to the app.js begginging :
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+ like:
+
+app.post("/",(req,res)=>{
+
+now we need make the url into a dynamic code such that the parameters can be editing according to the input of the form like:
+
+const query=req.body.cityName;
+const apikey="5f139850b1894bfdfd1f2e02929bf12a";
+const units="metric";
+ const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+apikey+"&units="+units+"";
+
+ now the rest of the code which get inside this post method of app function like:
+
+ app.post("/",(req,res)=>{
+ console.log(req.body.cityName);
+const query=req.body.cityName;
+const apikey="5f139850b1894bfdfd1f2e02929bf12a";
+const units="metric";
+ const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+apikey+"&units="+units+"";
+
+    https.get(url,(response)=>{
+        // console.log(response);
+        response.on("data",(data)=>{
+            const weatherdata=JSON.parse(data);
+            const temp=weatherdata.main.temp;
+            const desc=weatherdata.weather[0].description;
+            const img=weatherdata.weather[0].icon;
+            const imgurl="http://openweathermap.org/img/wn/"+img+"@2x.png";
+            res.write("<h1>The temp in "+query+" " + temp +" </h1>");
+            res.write("<p>weather type in "+query+" " + desc +"</h1>");
+            res.write("<img src="+imgurl+"></img>");
+            res.send();
+        })
+    });
+
+
+
+Full code of app.js:
+const { response } = require("express");
+const express =require("express");
+const bodyParser=require("body-parser");
+const https=require("https");
+
+const app= express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+ 
+app.get("/",(req,res)=>{
+    
+    res.sendFile(__dirname+"/index.html");
+
+    // res.send("Server is running");
+})
+
+app.post("/",(req,res)=>{
+ console.log(req.body.cityName);
+const query=req.body.cityName;
+const apikey="5f139850b1894bfdfd1f2e02929bf12a";
+const units="metric";
+ const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+apikey+"&units="+units+"";
+
+    https.get(url,(response)=>{
+        // console.log(response);
+        response.on("data",(data)=>{
+            const weatherdata=JSON.parse(data);
+            const temp=weatherdata.main.temp;
+            const desc=weatherdata.weather[0].description;
+            const img=weatherdata.weather[0].icon;
+            const imgurl="http://openweathermap.org/img/wn/"+img+"@2x.png";
+            res.write("<h1>The temp in "+query+" " + temp +" </h1>");
+            res.write("<p>weather type in "+query+" " + desc +"</h1>");
+            res.write("<img src="+imgurl+"></img>");
+            res.send();
+        })
+    });
+
+})
+
+
+
+app.listen(3000,()=>{
+    console.log("Running");
+})
